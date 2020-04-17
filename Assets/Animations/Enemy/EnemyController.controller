@@ -640,6 +640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b1ed96753c88241990deb263685056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceTravelled: 0
+  lastPosition: {x: 0, y: 0}
 --- !u!1101 &7581735852733875287
 AnimatorStateTransition:
   m_ObjectHideFlags: 3

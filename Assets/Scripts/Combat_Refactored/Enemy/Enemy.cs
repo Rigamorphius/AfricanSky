@@ -10,6 +10,7 @@ public class Enemy : Actor, IHaveHealth
     public Animator animator;
     public Rigidbody2D rigidbody2D;
     public SpriteRenderer spriteRenderer;
+    public enum PatrolStates { None, Horizontal, Vertical, Random };
 
     public float attackRange;
     [SerializeField]
@@ -29,7 +30,6 @@ public class Enemy : Actor, IHaveHealth
     public bool isAttackPressed;
     [HideInInspector]
     public bool isDead = false;
-
     public int Health { get => currentHealth; set => currentHealth = value; }
 
     // Start is called before the first frame update
@@ -49,6 +49,8 @@ public class Enemy : Actor, IHaveHealth
         if(!isDead)
             LookAtPlayer();
     }
+
+    
 
     void CheckForDeath()
     {

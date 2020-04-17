@@ -7,7 +7,7 @@ public class HurtBox : MonoBehaviour, IDamageable
 {
     [SerializeField]
     BoxCollider2D boxCollider2D;
-    public Actor attacker, parent;
+    [HideInInspector] public Actor attacker, parent;
     IHaveHealth healthAmount;
 
     private void Awake()
