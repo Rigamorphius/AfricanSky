@@ -10,7 +10,6 @@ TagManager:
   - Spawn Trigger
   - Trigger
   - AttackBox
-  - FallTrigger
   layers:
   - Default
   - TransparentFX

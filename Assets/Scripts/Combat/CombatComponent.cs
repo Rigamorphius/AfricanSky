@@ -23,7 +23,7 @@ public class CombatComponent : MonoBehaviour
     public void UpdateText()
     {
         //Debug.Log($"{this.gameObject.name} health: {health}");
-        healthText.text = $"{this.gameObject.name} Health: {health}";  //{this.gameObject.name}
+       // healthText.text = $"{this.gameObject.name} Health: {health}";  //{this.gameObject.name}
     }
 
     private void Update()

@@ -119,7 +119,7 @@ public class EnemyController : MonoBehaviour
         {
             inSight = true;
             anim.Play("Walk");
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
 
