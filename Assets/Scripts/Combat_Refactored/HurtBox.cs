@@ -55,4 +55,14 @@ public class HurtBox : MonoBehaviour, IDamageable
             Debug.Log($"Hurtbox: " + parent.name + " was hit for: " + attackerHitBox.amount + "damage.");
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        attacker = null;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        attacker = null;
+    }
 }
