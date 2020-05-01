@@ -19,9 +19,9 @@ public class Player : Actor, IHaveHealth, IHaveLives
     [SerializeField]
     int startingLives; //the lives the player starts with
     [SerializeField]
-    private int currentHealth; //the health the player starts with
+    private float currentHealth; //the health the player starts with
     [SerializeField]
-    public int maxHealth; //the max health the player can have, starts out with this
+    public float maxHealth = 1f; //the max health the player can have, starts out with this
 
 
     #region Animator Variables
@@ -41,7 +41,7 @@ public class Player : Actor, IHaveHealth, IHaveLives
     public bool isAttackPressed;
     #endregion
 
-    public int Health 
+    public float Health 
     { 
         get => currentHealth;
         set => currentHealth = value;
