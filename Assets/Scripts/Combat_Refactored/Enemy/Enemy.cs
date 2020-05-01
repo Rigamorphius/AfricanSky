@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -103,5 +104,27 @@ public class Enemy : Actor, IHaveHealth
             transform.Rotate(0f, 180f, 0f);
             isFlipped = false;
         }
+    }
+
+    //This event should be observed by the health bar system
+    public event EventHandler OnHealthChanged;
+    /// <summary>
+    /// This function is called when the hurtbox collides with a hitbox, it reduces the health of the object the hurtbox belongs to by the value of the int amount
+    /// </summary>
+    /// <param name="amount">value to reduce health by when function is called, the amount belongs to the hitbox that collides with the hurtbox</param>
+    public override void TakeDamage(int amount)
+    {
+        //this runs to make sure Health doesn't fall into the negatives
+        if (Health <= 0)
+        {
+            Health = 0;
+            return;
+        }
+        //reduces parent object's health by the amount variable
+        Health -= amount;
+        if (OnHealthChanged != null)
+            OnHealthChanged(this, EventArgs.Empty); //triggers event for the ui to see
+
+        Debug.Log($"The {name} was hit for {amount} damage");
     }
 }

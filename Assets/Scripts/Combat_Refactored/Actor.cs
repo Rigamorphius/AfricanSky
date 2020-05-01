@@ -6,4 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Actor : MonoBehaviour
 {
+    public virtual void TakeDamage(int amount)
+    { }
 }

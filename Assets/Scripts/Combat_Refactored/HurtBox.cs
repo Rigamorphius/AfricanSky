@@ -3,22 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
+/// <summary>
+/// This should be attached to a child of the Actor that it belongs to.
+/// </summary>
 public class HurtBox : MonoBehaviour, IDamageable
 {
     [SerializeField]
     BoxCollider2D boxCollider2D;
-    [HideInInspector] public Actor attacker, parent;
+    public Actor attacker, parent;
     IHaveHealth healthAmount;
+
+    public event EventHandler OnHealthChanged;
 
     private void Awake()
     {
         this.gameObject.SetActive(true);
-
+        boxCollider2D.isTrigger = true;
         parent = GetComponentInParent<Actor>();
         Debug.Log("The parent is: " + parent.name);
 
         //reference to the current health of the parent object's IHaveHealth Health property
         healthAmount = GetComponentInParent<IHaveHealth>();
+    }
+
+    private void Start()
+    {
+        if (parent == null)
+            parent = GetComponentInParent<Actor>();
+        Debug.Log("The parent is: " + parent.name);
     }
 
     /// <summary>
@@ -31,11 +44,12 @@ public class HurtBox : MonoBehaviour, IDamageable
         if(healthAmount.Health <= 0 )
         {
             healthAmount.Health = 0;
-            //this.gameObject.SetActive(false);
             return;
         }
         //reduces parent object's health by the amount variable
         healthAmount.Health -= amount;
+        if (OnHealthChanged != null)
+            OnHealthChanged(this, EventArgs.Empty); //triggers event for the ui to see
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,17 +65,13 @@ public class HurtBox : MonoBehaviour, IDamageable
         //if they are on the same layer no damage is taken
         if (attacker.gameObject.layer != parent.gameObject.layer)
         {
-            Hit(attackerHitBox.amount);
-            Debug.Log($"Hurtbox: " + parent.name + " was hit for: " + attackerHitBox.amount + "damage.");
+            //Hit(attackerHitBox.amount);
+            parent.TakeDamage(attackerHitBox.amount);
+            //Debug.Log($"Hurtbox: " + parent.name + " was hit for: " + attackerHitBox.amount + "damage.");
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        attacker = null;
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerExit(Collider other)
     {
         attacker = null;
     }

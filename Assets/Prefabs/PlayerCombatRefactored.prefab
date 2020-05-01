@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 2004521795196989899}
   - component: {fileID: 2004521795196989896}
   - component: {fileID: 2004521795196989900}
+  - component: {fileID: 6373549282074991582}
   m_Layer: 9
   m_Name: PlayerCombatRefactored
   m_TagString: Player
@@ -262,7 +263,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000007450581, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -291,7 +292,8 @@ MonoBehaviour:
   animator: {fileID: 2004521795196989899}
   rigidbody2D: {fileID: 2004521795196989903}
   spriteRenderer: {fileID: 2004521795196989902}
-  walkSpeed: 0.5
+  environmentCollider: {fileID: 6373549282074991582}
+  walkSpeed: 1
   currentLives: 0
   startingLives: 1
   currentHealth: 0
@@ -303,6 +305,32 @@ MonoBehaviour:
   moveVertical: 0
   isJumpedPressed: 0
   isAttackPressed: 0
+--- !u!61 &6373549282074991582
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004521795196989901}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.15}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.56274414}
+    newSize: {x: 0.23, y: 0.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.1}
+  m_EdgeRadius: 0
 --- !u!1 &6393778128990780532
 GameObject:
   m_ObjectHideFlags: 0

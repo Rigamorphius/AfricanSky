@@ -10,6 +10,8 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         main = Camera.main;
+        if (objectToFollow == null)
+            objectToFollow = Transform.FindObjectOfType<Player>().transform;
     }
 
     // Update is called once per frame

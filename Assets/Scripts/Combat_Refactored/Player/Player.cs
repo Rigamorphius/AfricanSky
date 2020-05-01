@@ -12,6 +12,10 @@ public class Player : Actor, IHaveHealth, IHaveLives
     public Animator animator;
     public Rigidbody2D rigidbody2D;
     public SpriteRenderer spriteRenderer;
+
+    [Tooltip("This should be at the character's feet, it collides with the environment.")]
+    public BoxCollider2D environmentCollider;
+
     [SerializeField]
     public float walkSpeed;
     [SerializeField]
@@ -50,7 +54,7 @@ public class Player : Actor, IHaveHealth, IHaveLives
 
     public int Lives { get => currentLives; set => currentLives = value; }
 
-    private void Start()
+    private void Awake()
     {
         playerTransform = GetComponent<Transform>();
         animator = GetComponent<Animator>();
@@ -139,15 +143,40 @@ public class Player : Actor, IHaveHealth, IHaveLives
         transform.localScale = theScale;
     }
 
+    //This event should be observed by the lives counter in the UI
+    public event EventHandler OnLivesChanged;
     void CheckForDeath()
     {
         if(currentHealth <= 0)
         {
             currentHealth = 0;
             isDead = true;
+            OnLivesChanged(this, EventArgs.Empty);
         }
         else if (currentHealth > 0)
             isDead = false;
         animator.SetBool("IsDead", isDead);
+    }
+
+    //This event should be observed by the health bar system
+    public event EventHandler OnHealthChanged;
+    /// <summary>
+    /// This function is called when the hurtbox collides with a hitbox, it reduces the health of the object the hurtbox belongs to by the value of the int amount
+    /// </summary>
+    /// <param name="amount">value to reduce health by when function is called, the amount belongs to the hitbox that collides with the hurtbox</param>
+    public override void TakeDamage(int amount)
+    {
+        //this runs to make sure Health doesn't fall into the negatives
+        if (Health <= 0)
+        {
+            Health = 0;
+            return;
+        }
+        //reduces parent object's health by the amount variable
+        Health -= amount;
+        if (OnHealthChanged != null)
+            OnHealthChanged(this, EventArgs.Empty); //triggers event for the ui to see
+
+        Debug.Log($"The {name} was hit for {amount} damage");
     }
 }

@@ -10,7 +10,6 @@ public class PlayerJumpBehaviour : StateMachineBehaviour
     {
         player = animator.GetComponent<Player>();
         //animator.SetBool("Jump", false);
-        player.rigidbody2D.velocity = Vector2.zero; //this should prevent sliding
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -18,7 +17,7 @@ public class PlayerJumpBehaviour : StateMachineBehaviour
     {
         //animator.SetBool("Jump", false);
         animator.SetBool("Punch", false);
-        player.rigidbody2D.velocity = Vector2.zero; //this should prevent sliding
+        player.rigidbody2D.velocity = Vector2.zero;
 
     }
 
