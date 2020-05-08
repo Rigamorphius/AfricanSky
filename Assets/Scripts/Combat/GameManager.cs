@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
             enemiesKilled = 0;
         }
 
-        if (totalEnemiesKilled >= 18) {
+        if (totalEnemiesKilled >= 13) {
             SceneManager.LoadScene("WinScene");
         }
 
