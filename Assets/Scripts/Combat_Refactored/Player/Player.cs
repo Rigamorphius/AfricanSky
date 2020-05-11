@@ -44,6 +44,12 @@ public class Player : Actor, IHaveHealth, IHaveLives
     public bool isAttackPressed;
     #endregion
 
+    #region SoundVariables
+    public bool isHittingEnemy;
+    public AudioSource audioSource;
+    public AudioClip hitSound, whifSound;
+    #endregion
+
     public float Health 
     { 
         get => currentHealth;

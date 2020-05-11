@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,8 @@ public class PlayerPunchBehaviour : StateMachineBehaviour
         animator.SetBool("Punch", false);
         attackHitBox = player.GetComponentInChildren<HitBox>();
         attackHitBox.hitBoxCollider.enabled = true;
+
+        CheckifHittingEnemyAndPlaySound();
     }
     
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -31,5 +34,23 @@ public class PlayerPunchBehaviour : StateMachineBehaviour
     {
         animator.ResetTrigger("Punch");
         attackHitBox.hitBoxCollider.enabled = false;
+    }
+
+    void CheckifHittingEnemyAndPlaySound()
+    {
+        if (player.audioSource.isPlaying)
+            player.audioSource.Stop();
+
+        if (attackHitBox.hitBoxCollider.IsTouchingLayers(layerMask: 11)) //check to see if hitting correct layer, the correct layer is Hurtboxes
+        {//set bool of is hitting to true
+            player.isHittingEnemy = true;
+            player.audioSource.PlayOneShot(player.hitSound);
+        }
+        else
+        {
+            //set bool of is hitting to false
+            player.isHittingEnemy = false;
+            player.audioSource.PlayOneShot(player.whifSound);
+        }
     }
 }
