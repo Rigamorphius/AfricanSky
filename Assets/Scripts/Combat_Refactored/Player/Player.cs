@@ -44,12 +44,6 @@ public class Player : Actor, IHaveHealth, IHaveLives
     public bool isAttackPressed;
     #endregion
 
-    #region SoundVariables
-    public bool isHittingEnemy;
-    public AudioSource audioSource;
-    public AudioClip hitSound, whifSound;
-    #endregion
-
     public float Health 
     { 
         get => currentHealth;
@@ -175,6 +169,7 @@ public class Player : Actor, IHaveHealth, IHaveLives
 
     public void LivesIncreased(int amount)
     {
+        //play heal sound
         Lives += amount;
         OnLivesChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -210,6 +205,7 @@ public class Player : Actor, IHaveHealth, IHaveLives
 
     public void IncreaseHealth(float amount)
     {
+        //play heal sound
         Health += amount;
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
 

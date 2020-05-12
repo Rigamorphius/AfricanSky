@@ -12,6 +12,9 @@ public class Enemy : Actor, IHaveHealth
     public Rigidbody2D rigidbody2D;
     public SpriteRenderer spriteRenderer;
 
+    private AudioSource punch1Source;
+
+
     public float attackRange;
     [SerializeField]
     public float walkSpeed;
@@ -43,6 +46,7 @@ public class Enemy : Actor, IHaveHealth
 
     void SetUpComponents()
     {
+        punch1Source = GetComponent<AudioSource>();
         playerTransform = FindObjectOfType<Player>().transform;
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -125,6 +129,8 @@ public class Enemy : Actor, IHaveHealth
     /// <param name="amount">value to reduce health by when function is called, the amount belongs to the hitbox that collides with the hurtbox</param>
     public override void TakeDamage(float amount)
     {
+        PlaySound();
+
         //this runs to make sure Health doesn't fall into the negatives
         if (Health <= 0)
         {
@@ -137,5 +143,10 @@ public class Enemy : Actor, IHaveHealth
             OnHealthChanged(this, EventArgs.Empty); //triggers event for the ui to see
 
         Debug.Log($"The {name} was hit for {amount} damage");
+    }
+
+    void PlaySound()
+    {
+        punch1Source.Play();
     }
 }
